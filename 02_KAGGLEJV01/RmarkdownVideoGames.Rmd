@@ -1,0 +1,337 @@
+---
+title: "Base de donnée Jeux Vidéo"
+author: "πR"
+date: "Version du `r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: paper
+---
+
+```{r setup, include=FALSE}
+
+# pour les thèmes à choisir :
+# "default", "bootstrap", "cerulean", "cosmo", "flatly", "journal", "lumen", "paper", "readable", 
+# "sandstone", "simplex", "spacelab", "united", "yeti"
+
+
+
+
+library(skimr)
+library(readr)
+library(flexdashboard)
+library(htmltools)
+library(data.table)
+library(htmlwidgets)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(hrbrthemes)
+library(viridis)
+library(vtable)
+library(visdat)
+library(naniar)
+
+
+
+
+DataVG <- read_csv("Data/Video_Game_Information.csv", col_types = cols(ReleaseYear = col_number(), NumPlayers = col_number(), AvgRating = col_number()))
+
+DataVG <- DataVG %>% distinct(Title, .keep_all = TRUE)
+
+DataGroup <- function(DATA,type = c("Categorie","Plat")) {
+  if(type == "Categorie"){
+    NewData <- DATA %>% group_by(Genre) %>% mutate(NumAvg = mean(NumPlayers),AvgGenre = mean(AvgRating),Nombre = n()) %>% distinct(Genre,.keep_all = TRUE) %>% select(Genre,NumAvg,AvgGenre,Nombre) %>% ungroup()
+  }
+  else if(type == "Plat"){
+    NewData <- DATA %>% group_by(Platform) %>% mutate(NumAvg = mean(NumPlayers),AvgGenre = mean(AvgRating),Nombre = n()) %>% distinct(Platform,.keep_all = TRUE) %>% select(Platform,NumAvg,AvgGenre,Nombre) %>% ungroup()
+  }
+  return(NewData)
+}
+
+
+DataG <- DataGroup(DataVG,"Categorie")
+DataP <- DataGroup(DataVG,"Plat")
+
+
+# Description de la base de données
+
+
+
+labelsVG <- c("Le nom du jeu vidéo",
+            "La catégorie ou le type de gameplay du jeu concerné",
+            "La plateforme du jeu vidéo concerné",
+            "L'année de sortie du jeu vidéo",
+            "Le nombre maximum de joueur en simultané",
+            "La notation du jeu concerné comprise entre 0 et 10")
+
+labelsG <- c("Le nom du genre de jeu vidéo",
+            "Le nombre en moyenne de joueurs en simultané par rapport à la catégorie",
+            "Moyenne par la catégorie",
+            "Nombre de titres faisant partie de la catégorie")
+
+labelsP <- c("Le nom de la plateforme",
+            "Le nombre en moyenne de joueurs en simultané par rapport à la plateforme",
+            "Moyenne par la plateforme",
+            "Nombre de titres faisant partie de la plateforme")
+
+
+
+
+```
+
+
+
+
+Description de la base de données en général{data-navmenu="DataInfos"}
+=======================================================================
+
+
+### Informations base de données avec Vtable
+
+```{r InfosData Vtable base de données général}
+vtable(DataVG,labels=labelsVG,index=TRUE,factor.limit=0,data.title = "Base de données sur les jeux vidéo",missing = TRUE,lush = TRUE)
+```
+
+
+
+Description de la base de données par catégorie{data-navmenu="DataInfos"}
+=======================================================================
+
+
+### Informations base de données avec Vtable
+
+```{r InfosData Vtable base de données par catégorie}
+vtable(DataG,labels=labelsG,index=TRUE,factor.limit=0,data.title = "Base de données sur les jeux vidéo par catégorie",missing = TRUE,lush = TRUE)
+```
+
+
+
+Description de la base de données par plateforme{data-navmenu="DataInfos"}
+=======================================================================
+
+
+### Informations base de données avec Vtable
+
+```{r InfosData Vtable base de données par plateforme}
+vtable(DataP,labels=labelsP,index=TRUE,factor.limit=0,data.title = "Base de données sur les jeux vidéo par plateforme",missing = TRUE,lush = TRUE)
+```
+
+
+
+
+
+Statistique descriptive de la base générale {data-navmenu="Video Games"}
+=======================================================================
+
+
+### Base de données des Jeux Vidéo
+
+```{r InfoStats skimr base de données générale}
+skim(DataVG)
+```
+
+
+
+Statistique descriptive de la base par catégorie {data-navmenu="Video Games"}
+=======================================================================
+
+
+### Base de données des Jeux Vidéo
+
+```{r InfoStats skimr base de données par catégorie}
+skim(DataG)
+```
+
+
+
+
+Statistique descriptive de la base par plateforme {data-navmenu="Video Games"}
+=======================================================================
+
+
+### Base de données des Jeux Vidéo
+
+```{r InfoStats skimr base de données par plateforme}
+skim(DataP)
+```
+
+
+
+
+Valeurs manquantes {data-navmenu="Video Games"}
+=======================================================================
+
+
+## Column {data-width="500"}
+
+### Représentation graphique des variables de la base générale
+
+```{r Graphique de valeurs manquantes de la base de données générale}
+vis_dat(DataVG)
+```
+
+
+## Column {data-width="500"}
+
+### Représentation graphique des variables de la base par plateforme
+
+```{r Graphique de valeurs manquantes de la base de données par plateforme}
+vis_dat(DataP)
+```
+
+
+### Représentation graphique des variables de la base par catégorie
+
+```{r Graphique de valeurs manquantes de la base de données par genre}
+vis_dat(DataG)
+```
+
+
+
+
+
+Répartition par catégorie {data-navmenu="Graphiques"}
+=======================================================================
+
+### Graphique intéractif de la variable Température
+
+```{r Graphique de répartition}
+
+plot_ly(DataP,x = ~Platform,y = ~Nombre,type = "bar",color = ~Platform) %>% 
+  layout(xaxis = list(title = "Répartition des plateformes", zerolinewidth = 2, gridcolor = 'ffff',rangeslider = list(visible = T)),
+         showlegend = T, title='Représentation graphique des plateformes',
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff'),
+         plot_bgcolor='#e5ecf6', margin = 0.5,
+         legend = list(title = list(text="<br> Plateforme <br>"))) %>%
+  config(scrollZoom = TRUE,modeBarButtonsToAdd = c("drawline",
+                                                   "drawopenpath",
+                                                   "drawclosedpath",
+                                                   "drawcircle", 
+                                                   "drawrect", 
+                                                   "eraseshape",
+                                                   "editInChartStudio",
+                                                   "toggleSpikesLines"),locale = "fr")
+
+
+
+```
+
+
+
+
+
+Graphique 3D par genre {data-navmenu="Graphiques"}
+=======================================================================
+
+### Graphique intéractif plotly de la base de données par genre
+
+```{r Graphique 3D genre}
+
+
+plot_ly(DataG, x = ~NumAvg, y = ~AvgGenre, z = ~Nombre, color = ~Genre) %>% 
+  add_markers() %>% 
+  layout(scene = list(xaxis = list(title = 'Nombre moyen de joueur en simultané'),
+                     yaxis = list(title = 'La moyenne par catégorie'),
+                     zaxis = list(title = 'Nombre de titre de la catégorie représenté')),
+         legend = list(title = list(text="<br> Catégorie <br>"))) %>%
+    config(scrollZoom = TRUE,modeBarButtonsToAdd = c("drawline",
+                                                   "drawopenpath",
+                                                   "drawclosedpath",
+                                                   "drawcircle", 
+                                                   "drawrect", 
+                                                   "eraseshape",
+                                                   "editInChartStudio",
+                                                   "toggleSpikesLines"),locale = "fr")
+
+```
+
+
+
+
+Graphique 3D par plateforme {data-navmenu="Graphiques"}
+=======================================================================
+
+### Graphique intéractif plotly de la base de données par plateforme
+
+```{r Graphique 3D platforme}
+
+
+plot_ly(DataP, x = ~NumAvg, y = ~AvgGenre, z = ~Nombre, color = ~Platform) %>% 
+  add_markers() %>% 
+  layout(scene = list(xaxis = list(title = 'Nombre moyen de joueur en simultané'),
+                     yaxis = list(title = 'La moyenne par plateforme'),
+                     zaxis = list(title = 'Nombre de titre de la plateforme représenté')),
+         legend = list(title = list(text="<br> Plateforme <br>")),
+         plot_bgcolor = 'rgb(243, 243, 243)') %>%
+    config(scrollZoom = TRUE,modeBarButtonsToAdd = c("drawline",
+                                                   "drawopenpath",
+                                                   "drawclosedpath",
+                                                   "drawcircle", 
+                                                   "drawrect", 
+                                                   "eraseshape",
+                                                   "editInChartStudio",
+                                                   "toggleSpikesLines"),locale = "fr")
+
+```
+
+
+
+
+Graphique 3D général n1{data-navmenu="Graphiques"}
+=======================================================================
+
+### Graphique intéractif plotly de la base de données catégorie
+
+```{r Graphique 3D general n1}
+
+
+plot_ly(DataVG, x = ~ReleaseYear, y = ~NumPlayers, z = ~AvgRating, color = ~Genre,text = ~paste('Titre:', Title, '<br>Catégorie:', Genre, '<br>Plateforme:', Platform)) %>% 
+  add_markers() %>% 
+  layout(scene = list(xaxis = list(title = 'Année de sortie du titre'),
+                     yaxis = list(title = 'Nombre de joueurs max en simultané'),
+                     zaxis = list(title = 'Note moyenne')),
+         legend = list(title = list(text="<br> Catégorie <br>")),
+         plot_bgcolor = 'rgb(243, 243, 243)') %>%
+    config(scrollZoom = TRUE,modeBarButtonsToAdd = c("drawline",
+                                                   "drawopenpath",
+                                                   "drawclosedpath",
+                                                   "drawcircle", 
+                                                   "drawrect", 
+                                                   "eraseshape",
+                                                   "editInChartStudio",
+                                                   "toggleSpikesLines"),locale = "fr")
+
+```
+
+
+
+
+Graphique 3D général n2{data-navmenu="Graphiques"}
+=======================================================================
+
+### Graphique intéractif plotly de la base de données plateforme
+
+```{r Graphique 3D general n2}
+
+
+plot_ly(DataVG, x = ~ReleaseYear, y = ~NumPlayers, z = ~AvgRating, color = ~Platform,text = ~paste('Titre:', Title, '<br>Catégorie:', Genre, '<br>Plateforme:', Platform)) %>% 
+  add_markers() %>% 
+  layout(scene = list(xaxis = list(title = 'Année de sortie du titre'),
+                     yaxis = list(title = 'Nombre de joueurs max en simultané'),
+                     zaxis = list(title = 'Note moyenne')),
+         legend = list(title = list(text="<br> Platform <br>")),
+         plot_bgcolor = 'rgb(243, 243, 243)') %>%
+    config(scrollZoom = TRUE,modeBarButtonsToAdd = c("drawline",
+                                                   "drawopenpath",
+                                                   "drawclosedpath",
+                                                   "drawcircle", 
+                                                   "drawrect", 
+                                                   "eraseshape",
+                                                   "editInChartStudio",
+                                                   "toggleSpikesLines"),locale = "fr")
+
+```
+
+
