@@ -35,7 +35,3 @@ Vous pourrez suivre ces analyses dans les vidéos de la chaîne [πR](https://ww
 
 -   [Analyse d'une base de donnée sur les jeux vidéo avec Rmarkdown (Rstudio \| 2/4)](https://www.youtube.com/watch?v=Eqm3nQWALCc)
 
-
-Avec le temps, des plateformes de données seront possibles à découvrir, des projets pourront peut voir le jour.
-
-Des projets qui ne seront pas forcément en lien avec ce répertoire peuvent être en complémentarités avec un autre répertoire.
