@@ -5,37 +5,70 @@ date: "2024-09-20"
 output: html_document
 ---
 
-# Base de données sur les jeux vidéo
+
+# Etudes sur les données
 
 ## 1] Présentation
 
-Le sujet établit dans cette rubrique sera axé sur les jeux vidéo principalement sur plusieurs formats de script de RStudio.
+Ce répertoire va servir à un entrepôt sur les études réalisées à travers les vidéos de la chaîne [πR](https://www.youtube.com/@pieRData).
 
-La [Base de données](https://www.kaggle.com/datasets/dem0nking/video-game-ratings-dataset) a été choisie sur [Kaggle](https://www.kaggle.com/), une base de données contenant 6 variables et 122 observations.
+L'idée est de montrer ce que contient une base de données, mais pas seulement. C'est aussi de montrer des outils de visualisation pour mieux voir ce que contient une base de données. C'est aussi de voir les différents outils qu'on peut utiliser sous Rstudio.
 
-Les variables sont les suivantes :
+Pour avoir une vision plus explicite, vous pouvez suivre les vidéos sur la chaine YouTube :
 
--   Title: Le nom du jeu vidéo
+[![](images/Rplot01.png){.illustration .chaîne .YouTube fig-align="center" width="200"}](https://www.youtube.com/@pieRData)
 
--   Genre: La catégorie ou le type de gameplay, comme Action-Aventure, FPS, RPG, etc...
+## 2] Déroulement
 
--   Platform: La plateforme qui est utilisée pour jouer le jeu comme Xbox, Playstation, PC, Switch, Multi-platefome.
+Les vidéos présentées dans la chaîne [πR](https://www.youtube.com/@pieRData) sont réalisées principalement sous [RStudio](https://posit.co/download/rstudio-desktop/). Les scripts sous RStudio qui sont réalisés peuvent prendre différents formats :
 
--   ReleaseYear: L'année de sortie du jeu concerné
+-   Script normal R
 
--   NumPlayers: Le nombre maximum de joueurs pouvant jouer en simultané.
+-   Rmarkdown
 
--   AvgRating: La moyenne du jeu comprise entre 0 et 10.
+-   Quarto
 
-Vous pourrez suivre ces analyses dans les vidéos de la chaîne [πR](https://www.youtube.com/@pieRData) mais aussi plus particulièrement dans cette [Playlist](https://www.youtube.com/playlist?list=PLYXmuD2BLck5L7f4fPgnuRpYUsI86cshV).
+-   Shiny
 
-## 2] Liste des vidéos :
+Il peut y avoir plusieurs étapes pour réaliser ces visualisations ou même de la manipulation de données dans RStudio.
 
--   [Analyse d'une base de données sur les jeux vidéo (Rstudio \| 1/4)](https://www.youtube.com/watch?v=qIqhzEhlOdM)
+Il y aura aussi des parties distinctes durant les vidéos :
 
--   [Analyse d'une base de donnée sur les jeux vidéo avec Rmarkdown (Rstudio \| 2/4)](https://www.youtube.com/watch?v=Eqm3nQWALCc)
+1.  Une première partie sur l'importation des données / nettoyage des données si nécessaire.
 
+2.  Une deuxième partie sur de la manipulation de données / modification / création de variable.
+
+3.  Une troisième partie sur l'aspect visualisation des données à travers des outils graphiques.
+
+4.  Une quatrième partie éventuelle sur des aspects statistiques avec des estimations.
+
+Selon le contexte, d'autres parties peuvent s'accumuler.
+
+## 3] Les sujets abordés
+
+Sur les videos mises en ligne, les bases de données utilisées peuvent être sur plusieurs domaines différents. Le choix des bases de données n'est pas limité mais certains sujets qui peuvent être explosifs ne seront pas abordés dans les vidéos de la chaîne.
+
+Il y a 2 sujets ou 2 thèmes qui seront bannis :
+
+1.  ~~La politique~~
+
+2.  ~~La religion~~
+
+Les données téléchargées seront principalement en ligne par des plateformes de données en open data ou bien des données accessibles sur le GitHub.
+
+Des plateformes de données qui sont utilisées :
+
+-   [Kaggle](https://www.kaggle.com/)
+
+-   [SNCF Open Data](https://ressources.data.sncf.com/pages/accueil/)
+
+D'autres plateformes seront rajoutées avec le temps.
+
+## 4] Perspectives
+
+Selon la quantité de données et la capacité du PC utilisée, il est possible qu'une phase sur le Machine Learning ou le Deep Learning se rajoute dans les vidéos mais cela va dépendre de la puissance actuelle du PC utilisée.
 
 Avec le temps, des plateformes de données seront possibles à découvrir, des projets pourront peut voir le jour.
 
 Des projets qui ne seront pas forcément en lien avec ce répertoire peuvent être en complémentarités avec un autre répertoire.
+
