@@ -1,27 +1,37 @@
 ---
 title: "README"
 author: "πR"
-format: html
+format: html_document
 editor: visual
 ---
 
-## Quarto
+# [**Base de données sur les jeux vidéo**]{.underline}
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+## [**1\] Présentation**]{.underline}
 
-## Running Code
+Le sujet établit dans cette rubrique sera axé sur les jeux vidéo principalement sur plusieurs formats de script de RStudio.
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+La [Base de données](https://www.kaggle.com/datasets/dem0nking/video-game-ratings-dataset) a été choisie sur [Kaggle](https://www.kaggle.com/), une base de données contenant 6 variables et 122 observations.
 
-```{r}
-1 + 1
-```
+Les variables sont les suivantes :
 
-You can add options to executable code like this
+-   Title: Le nom du jeu vidéo
 
-```{r}
-#| echo: false
-2 * 2
-```
+-   Genre: La catégorie ou le type de gameplay, comme Action-Aventure, FPS, RPG, etc...
 
-The `echo: false` option disables the printing of code (only output is displayed).
+-   Platform: La plateforme qui est utilisée pour jouer le jeu comme Xbox, Playstation, PC, Switch, Multi-platefome.
+
+-   ReleaseYear: L'année de sortie du jeu concerné
+
+-   NumPlayers: Le nombre maximum de joueurs pouvant jouer en simultané.
+
+-   AvgRating: La moyenne du jeu comprise entre 0 et 10.
+
+Vous pourrez suivre ces analyses dans les vidéos de la chaîne [πR](https://www.youtube.com/@pieRData) mais aussi plus particulièrement dans cette [Playlist](https://www.youtube.com/playlist?list=PLYXmuD2BLck5L7f4fPgnuRpYUsI86cshV).
+
+## [**2\] Liste des vidéos :**]{.underline}
+
+-   [Analyse d'une base de données sur les jeux vidéo \[Rstudio \| 1/4\]](https://www.youtube.com/watch?v=qIqhzEhlOdM)
+
+-   [Analyse d'une base de donnée sur les jeux vidéo avec Rmarkdown \[Rstudio \| 2/4\]](https://www.youtube.com/watch?v=Eqm3nQWALCc)
+
