@@ -16,7 +16,7 @@ L'idée est de montrer ce que contient une base de données, mais pas seulement.
 
 Pour avoir une vision plus explicite, vous pouvez suivre les vidéos sur la chaine YouTube :
 
-[![](Rplot01.png){.illustration .chaîne .YouTube fig-align="center" width="200"}](https://www.youtube.com/@pieRData)
+[![](Rplot01.png)](https://www.youtube.com/@pieRData)
 
 ## 2] Déroulement
 
